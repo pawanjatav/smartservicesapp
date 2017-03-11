@@ -1,0 +1,74 @@
+﻿<ion-view view-title="Create Blog">
+    <ion-content>
+        <!--<div class="row">
+            <div class="col">
+                <a class="button button-outline icon-left ion-plus button-positive" style="border-radius:20px" data-ng-click="addImage()">Image</a>
+            </div>
+
+
+        </div>-->
+
+        <div class="row">
+
+            <div class="col-60">
+                <a data-ng-click="addImage()"><img width="20%" src="img/1469647872_image.ico" /><i style="position:absolute" class="ion-plus"></i></a>
+            </div>
+            <div class="col-20">
+                <div class="list">
+                    <select class="item item-input item-select" ng-model="data.CategoryID">
+                        <option selected="selected" value="">Category</option>
+                        <option ng-repeat="value in values" value="{{value.CategoryID}}">{{value.CategoryName}}</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+       
+         <a class="item-thumbanail" style="padding:10px" ng-repeat="image in images track by $index">
+      <img ng-src="{{image}}" style="width:30%;border:solid"/>
+      
+    </a>
+        
+        <div class="list list-inset">
+            <label class="item item-input">
+                <textarea placeholder="write blog here" rows="10" data-ng-model="data.textContent"></textarea>
+            </label>
+           
+                <div class="list" style="padding-left:60.9%">
+                    <div class="col-30">
+                      
+                            <select class="item item-input item-select" ng-model="data.PrivacyID">
+                                <option selected="selected" value="">Available for All</option>
+                                <option ng-repeat="value in Privacyvalues" value="{{value.PrivacyID}}">{{value.PrivacyTypeName}}</option>
+                            </select>
+                    
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+     
+
+
+        <!--<ion-scroll direction="x">
+            <div class="row">
+
+                <div class="col col-25" ng-repeat="image in images track by $index">
+                    <div class="item item-thumbnail-left" >
+                        <img  src="img/{{image}}" />
+                    </div>
+
+                </div>
+
+            </div>
+        </ion-scroll>-->
+
+
+        <div class="row">
+            <button class="button button-block button-positive" data-ng-click="addBlog(data)">Create</button>
+        </div>
+    </ion-content>
+</ion-view>

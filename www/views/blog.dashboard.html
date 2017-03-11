@@ -1,0 +1,32 @@
+﻿<ion-view view-title="SmartServices">
+    <ion-content>
+
+
+        <div ng-repeat="val in blogvalues" class="list card">
+
+            <div class="item item-avatar">
+
+                <img src="http://smartservicesapp.com/Uploads/ProfilePic/{{val.Userinfo[0].FilePathName}}" />
+                <h2>{{val.Userinfo[0].FirstName}} {{val.Userinfo[0].LastName}} </h2>
+                <p>  
+                    {{convertDate(val.CreatedDate) | date:'MMM dd, y'}}
+            
+                </p>
+            </div>
+
+            <div class="item item-body">
+                <img class="full-image" src="http://smartservicesapp.com/Uploads/BlogDoc/{{val.Fileinfo[0]}}" />
+                <p>
+                   {{val.textContent}}
+                </p>
+                <p>
+                    <a href="#" class="subdued" ng-click="likeBlog(val.BlogId)">Like</a>
+                    <a ui-sref="blogsdetailed({BlogId:val.BlogId,CategoryID:null})" class="subdued">Comments</a>
+                    <a ui-sref="blogsdetailed({BlogId:val.BlogId,CategoryID:null})" class="subdued item-note">Read More...</a>
+                </p>
+            </div>
+
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,55 @@
+﻿
+<ion-view>
+   <ion-content class="ion-contentColor">
+       <!--<div class="row profile-picture-div" >
+           <div class="col col-offset-25 col-50 item-body" style="z-index:1;position:relative">
+               <img class="full-image profile-picture" src="{{dataSrc}}" id="camera"/>
+               <a data-ng-click="popover.show($event)"><img class="profile-camera"  src="img/1469541137_device-camera-capture-photo-glyph.ico" /></a>
+           </div>
+       </div>-->
+
+       <div class="center">
+          
+           <div class="profile-pic" data-ng-click="popover.show($event)">
+               <div class="round"><a><img src="{{dataSrc}}" alt="" draggable="false" id="camera"></a>
+                  
+               </div>
+              
+           </div>
+         <!--  <a data-ng-click="popover.show($event)" style="width:5%;height:5%;"><img src="img/1469541137_device-camera-capture-photo-glyph.ico" style="height:30%;width:30%" /></a>-->
+       </div>
+
+         
+  
+       
+     
+       <div class="list list-inset">
+           <label class="item item-input">
+               <input type="text" placeholder="First Name" ng-model="data.FirstName">
+           </label>
+           <label class="item item-input">
+               <input type="text" placeholder="Last Name" ng-model="data.LastName">
+           </label>
+           <label class="item item-input">
+               <input type="text" placeholder="Username" ng-model="data.UserName">
+           </label>
+           <label class="item item-input">
+               <input type="email" placeholder="Email" ng-model="data.Email">
+           </label>
+           <label class="item item-input">
+               <input type="password" placeholder="Password" ng-model="data.Password">
+           </label>
+           <label class="item item-input">
+               <input type="password" placeholder="Confirm Password" ng-model="confirm" >
+           </label>
+           <label class="item item-input">
+               <input type="number" placeholder="mobile no." ng-model="data.Mobile">
+           </label>
+          
+         
+       </div>
+       <div class="row">
+           <button class="button button-block button-positive" ng-click="registerUser(data)">Register</button>
+       </div>
+   </ion-content>
+</ion-view>

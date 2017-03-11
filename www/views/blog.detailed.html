@@ -1,0 +1,84 @@
+﻿<ion-view>
+    <ion-content>
+        <div ng-repeat="val in blogvalues" class="list card">
+
+            <div class="item item-avatar">
+               
+                <img src="http://smartservicesapp.com/Uploads/ProfilePic/{{val.Userinfo[0].FilePathName}}" />
+                <h2>{{val.Userinfo[0].FirstName}} {{val.Userinfo[0].LastName}} </h2>
+                <p>
+                    {{convertDate(val.CreatedDate) | date:'M dd, y'}}
+
+                </p>
+            </div>
+     
+              
+                    <div class="left">
+                        <div style="background-color:highlight;opacity:0.4">
+                            <button class="button button-positive  no-animation icon ion-chevron-left"
+                                    ng-click="" ng-if="!slideIndex" style="color: black"></button>
+                            <button class="button button-positive  no-animation icon ion-chevron-left"
+                                    ng-click="previous()" ng-if="slideIndex > 0" style="color: black"></button>
+                        </div>
+                    </div>
+
+
+                    <div class="right">
+                        <div style="background-color:highlight;opacity:0.4">
+                            <button class="button button-positive  no-animation icon ion-chevron-right"
+                                    ng-click="next()" ng-if="!slideIndex" style="color: black"></button>
+                            <button class="button button-positive no-animation icon ion-chevron-right"
+                                    ng-click="next()" style="color: black" ng-if="slideIndex>0"></button>
+                        </div>
+                    </div>
+              
+                <ion-slide-box on-slide-changed="slideChanged($index)">
+
+                    <ion-slide ng-repeat="imgs in val.Fileinfo" >
+                        <div><img class="full-image" src="http://smartservicesapp.com/Uploads/BlogDoc/{{imgs}}" /></div>
+                    </ion-slide>
+                 
+                </ion-slide-box>
+
+     
+            <div class="item item-body">
+             
+                <p>
+                    {{val.textContent}}
+                </p>
+                <p>
+                   
+                    <ion-item class="item-icon-right">
+                        <a href="#" class="subdued">Like</a>
+                        <a href="#" class="subdued">Comments</a>
+                        <i class="icon ion-arrow-down-a"><span class="badge badge-assertive icon-badge">2</span></i>
+                    </ion-item>
+                   <!-- <i class="icon ion-ios7-telephone-outline"><span class="badge badge-assertive icon-badge">2</span></i>-->
+                    <!--<a ui-sref="downloadVideo" class="item-note assertive"> <i class="ion-arrow-down-a badge-container  badge-positive" ></i><i class="badge badge-assertive">2</i> Video</a>-->
+                </p>
+            </div>
+            <div class="item">
+                <textarea class="textarea-cls" ng-model="txtContent"></textarea>
+                <button class="button button-small button-positive" ng-click="addComment(txtContent)">Submit</button>
+            </div>
+        </div>
+        <div class="item">
+            <div class="list" ng-repeat="cmt in Comment">
+
+                <a class="item item-avatar">
+                    <img src="img/classprofile.png">
+                    <span class="badge badge-positive" ng-if="cmt.UserID==UserId" style="margin-right:30px" ng-click="editShow(cmt.CommentId)"><i class="icon ion-edit"></i></span>
+
+                    <span class="badge badge-assertive" ng-if="cmt.UserID==UserId" style="text-align:right" ng-click="DeleteBlogComment(cmt.CommentId)"><i class="icon ion-trash-a"></i></span>
+
+                    <h2>{{cmt.UserName}} </h2>
+                    <p ng-hide="cmt.commentShow" style="width:70%;white-space:initial">{{cmt.Comment}}</p>
+                   <input ng-if="cmt.commentShow" style="width:70%;height:40px" type="text" ng-model="cmt.Comment" ng-blur="editComment(cmt.Comment,cmt.CommentId)"/>
+                  
+
+                 
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
