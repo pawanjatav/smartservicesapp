@@ -1,4 +1,4 @@
-﻿<ion-view view-title="SmartServices">
+﻿<ion-view view-title="Smart Services">
     <ion-content>
 
 
@@ -20,7 +20,7 @@
                    {{val.textContent}}
                 </p>
                 <p>
-                    <a href="#" class="subdued" ng-click="likeBlog(val.BlogId)">Like</a>
+                    <a href="#" class="subdued" ng-click="likeBlog(val.BlogId,$index)"><span style="color:royalblue">{{val.UserLikesCount}}</span> Like </a>
                     <a ui-sref="blogsdetailed({BlogId:val.BlogId,CategoryID:null})" class="subdued">Comments</a>
                     <a ui-sref="blogsdetailed({BlogId:val.BlogId,CategoryID:null})" class="subdued item-note">Read More...</a>
                 </p>

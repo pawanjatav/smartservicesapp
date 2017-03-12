@@ -3,7 +3,7 @@
 
     $scope.data = {};
     $scope.forgetPassword = function (data1) {
-        alert(JSON.stringify(data1));
+       // alert(JSON.stringify(data1));
         httpServices.get("/ForgetPassword/" + data1.email).then(
             function (res) {
                 console.log(res);

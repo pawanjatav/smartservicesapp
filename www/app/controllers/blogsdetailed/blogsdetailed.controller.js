@@ -1,4 +1,4 @@
-﻿angular.module('blogsdetailed.module.controller', []).controller('blogsdetailed.controller', function ($stateParams, $scope, $ionicSlideBoxDelegate, httpServices, $state) {
+﻿angular.module('blogsdetailed.module.controller', []).controller( 'blogsdetailed.controller', function ($ionicPopup,$stateParams, $scope, $ionicSlideBoxDelegate, httpServices, $state) {
   
      $scope.next = function() {
     $ionicSlideBoxDelegate.next();
@@ -22,8 +22,61 @@
   httpServices.get('/GetBlogList/'+BlogIDs+'/'+null).then(function (response) {
 
       $scope.blogvalues = response.data.GetBlogListResult;
+      $scope.blogvalues.map((i, j) => {
+          if (i.UserLikes != null) {
+              i.UserLikesCount = i.UserLikes.split(',').length - 1;
+          }
+
+      })
   }, function (error) {
   });
+  $scope.likeBlog = function (blogId, index) {
+      var status = localStorage.getItem("UserID");
+      if (status === null || status === undefined || status === 'undefined' || status === '') {
+          var myPopup = $ionicPopup.confirm({
+              template: 'Please Login to like the blog.',
+              title: 'Alert',
+
+              // scope: $scope,
+
+          });
+          myPopup.then(function (res) {
+              $state.go('login');
+          });
+      }
+      else {
+          var array = [];
+          if ($scope.blogvalues[index].UserLikes != null) {
+              array = $scope.blogvalues[index].UserLikes.split(',');
+              for (var i = 0; i < array.length; i++) {
+                  if (status == array[i]) {
+                      var myPopup = $ionicPopup.confirm({
+                          template: 'You have already liked this blog.',
+                          title: 'Alert',
+
+                          // scope: $scope,
+
+                      });
+                      return;
+                  }
+              }
+          }
+          httpServices.get('/UserLikes/' + blogId + '/' + window.localStorage.getItem('UserID')).then(function (res) {
+              if ($scope.blogvalues[index].UserLikes != null) {
+                  $scope.blogvalues[index].UserLikesCount = parseInt($scope.blogvalues[index].UserLikesCount) + 1;
+                  $rootScope.blogvalues[index].UserLikes+=status+',';
+              } else {
+                  $scope.blogvalues[index].UserLikesCount = '1';
+                  $rootScope.blogvalues[index].UserLikes+=status+',';
+              }
+          }, function (er) {
+
+              console.log(er)
+          })
+      }
+
+
+  }
   $scope.addComment = function (txtContent) {
       var status = localStorage.getItem("UserID");
       //  alert(    httpServices.Bloglist('L', null));

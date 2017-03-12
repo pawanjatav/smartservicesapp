@@ -37,9 +37,17 @@
     //  alert(BlogID + ',' + CategoryID);
       $ionicLoading.show();
       this.get('/GetBlogList/' + BlogID + '/' + CategoryID).then(function (response) {
-      
+          console.log(response.data.GetBlogListResult);
           $rootScope.blogvalues = response.data.GetBlogListResult;
-          console.log(JSON.stringify( response.data.GetBlogListResult));
+          $rootScope.blogvalues.map((i, j) => {
+              if (i.UserLikes != null)
+              {
+                  i.UserLikesCount = i.UserLikes.split(',').length-1;
+              }
+              
+          })
+          console.log($rootScope.blogvalues);
+        //  console.log(JSON.stringify( response.data.GetBlogListResult));
           $ionicLoading.hide();
           q.resolve(response);
           $state.go("dashboard");

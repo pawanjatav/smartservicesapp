@@ -1,4 +1,4 @@
-﻿angular.module('main.module.controller', []).controller('main', function ($scope, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
+﻿angular.module('main.module.controller', []).controller('main', function ($ionicPopup,$scope, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
 
     $rootScope.profilePicture = "img/classprofile.png";
     var admobid = {};
@@ -61,13 +61,56 @@
     }, function (error) {
 
     });
-    $scope.likeBlog = function (blogId) {
-        httpServices.get('/UserLikes/' + blogId + '/' + window.localStorage.getItem('UserID')).then(function (res) {
-            console.log(res)
-        }, function (er) {
+    $scope.likeBlog = function (blogId,index) {
+        var status = localStorage.getItem("UserID");
+        if (status === null || status === undefined || status === 'undefined' || status === '') {
+            var myPopup = $ionicPopup.confirm({
+                template: 'Please Login to like the blog.',
+                title: 'Alert',
+               
+               // scope: $scope,
+               
+            });
+            myPopup.then(function (res) {
+                $state.go('login');
+            });
+        }
+        else {
+            var array = [];
+            if ($rootScope.blogvalues[index].UserLikes != null) {
+                array = $rootScope.blogvalues[index].UserLikes.split(',');
+                console.log(array);
+                for (var i = 0; i < array.length; i++) {
+                    if (status == array[i]) {
+                        var myPopup = $ionicPopup.confirm({
+                            template: 'You have already liked this blog.',
+                            title: 'Alert',
 
-            console.log(er)
-        })
+                            // scope: $scope,
+
+                        });
+                        return;
+                    }
+                }
+            }
+             
+           // var temp = 0;
+           
+          
+            httpServices.get('/UserLikes/' + blogId + '/' + window.localStorage.getItem('UserID')).then(function (res) {
+                if ($rootScope.blogvalues[index].UserLikes != null) {
+                    $rootScope.blogvalues[index].UserLikesCount = parseInt($rootScope.blogvalues[index].UserLikesCount) + 1;
+                    $rootScope.blogvalues[index].UserLikes+=status+',';
+                } else {
+                    $rootScope.blogvalues[index].UserLikesCount = '1';
+                    $rootScope.blogvalues[index].UserLikes+=status+',';
+                }
+            }, function (er) {
+
+                console.log(er)
+            })
+        }
+        
         
     }
 
