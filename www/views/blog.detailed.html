@@ -13,24 +13,7 @@
             </div>
      
               
-                    <div class="left">
-                        <div style="background-color:highlight;opacity:0.4">
-                            <button class="button button-positive  no-animation icon ion-chevron-left"
-                                    ng-click="" ng-if="!slideIndex" style="color: black"></button>
-                            <button class="button button-positive  no-animation icon ion-chevron-left"
-                                    ng-click="previous()" ng-if="slideIndex > 0" style="color: black"></button>
-                        </div>
-                    </div>
-
-
-                    <div class="right">
-                        <div style="background-color:highlight;opacity:0.4">
-                            <button class="button button-positive  no-animation icon ion-chevron-right"
-                                    ng-click="next()" ng-if="!slideIndex" style="color: black"></button>
-                            <button class="button button-positive no-animation icon ion-chevron-right"
-                                    ng-click="next()" style="color: black" ng-if="slideIndex>0"></button>
-                        </div>
-                    </div>
+                   
               
                 <ion-slide-box on-slide-changed="slideChanged($index)">
 

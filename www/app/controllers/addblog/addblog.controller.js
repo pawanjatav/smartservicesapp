@@ -22,11 +22,25 @@ var options={
         };
   $cordovaCamera.getPicture(options).then(function (imageData) {
 
-        $scope.images.push(imageData);
-        setTimeout(function(){
+      var imgPath = imageData.substr(0, imageData.lastIndexOf('?'));
+      if (imgPath == "") {
+          $scope.images.push(imageData);
+          setTimeout(function () {
 
-        $scope.images.apply();    
-        },500);
+              $scope.images.apply();
+          }, 500);
+      }
+      else {
+
+          $scope.images.push(imgPath);
+          setTimeout(function () {
+
+              $scope.images.apply();
+          }, 500);
+
+      }
+
+       
      
     },function(er){
 
