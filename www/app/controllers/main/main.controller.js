@@ -1,7 +1,9 @@
-﻿angular.module('main.module.controller', []).controller('main', function ($ionicPopup,$scope, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
+﻿angular.module('main.module.controller', []).controller('main', function ($ionicPopup, $timeout,$scope, $ionicScrollDelegate, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
 
     $rootScope.profilePicture = "img/classprofile.png";
     var admobid = {};
+    $scope.catId = 'null';
+    $scope.blogids = 'L';
     document.addEventListener('deviceready', function () {
         if (/(android)/i.test(navigator.userAgent)) { // for android & amazon-fireos
 
@@ -50,10 +52,17 @@
         $rootScope.profilePicture = localStorage.getItem("profilePic");
         
     }
+    var first = 1;
     $scope.getCategoryBlog = function (BlogID, CategoryID) {
-        httpServices.Bloglist(BlogID, CategoryID);
+        first = 1;
+        $rootScope.blogvalues = [];
+        $scope.catId = CategoryID;
+        $ionicScrollDelegate.scrollTop(true);
+        $scope.blogids = BlogID;
+        httpServices.Bloglist(BlogID, CategoryID,first,5);
     }
-    httpServices.Bloglist('L', null);
+  
+   
 
 
     httpServices.get('/GetCategoryList/L').then(function (response) {
@@ -61,6 +70,37 @@
     }, function (error) {
 
     });
+   
+    $scope.loadMore = function () {
+      //  alert(JSON.stringify(blogId+'          '+catId))
+       
+        httpServices.Bloglist($scope.blogids, $scope.catId, first, 5,'loadmore').then(function (resp) {
+            if (resp == undefined || resp.length == 0) {
+
+                var scroll = $ionicScrollDelegate.getScrollPosition();
+                var scrollPos = scroll.top - 300;
+                var myPopup = $ionicPopup.confirm({
+                    template: 'No more data to load.',
+                    title: 'Alert',
+
+                    // scope: $scope,
+
+                });
+                $ionicScrollDelegate.scrollBy(0, scrollPos, [true]);
+
+            }
+            else {
+                
+                $timeout(function () {
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            }
+            first++;
+            
+        }, function (er) {
+
+        });
+    }
     $scope.likeBlog = function (blogId,index) {
         var status = localStorage.getItem("UserID");
         if (status === null || status === undefined || status === 'undefined' || status === '') {

@@ -3,7 +3,7 @@
    
  // var url =  'http://localhost:49267/service.svc';
       var url = 'http://smartservicesapp.com/Service.svc';  
-
+      $rootScope.blogvalues = [];
   this.get=function(urlres){
       var q = $q.defer();
       $ionicLoading.show();
@@ -32,13 +32,21 @@
   }
 
 
-  this.Bloglist = function (BlogID, CategoryID) {
+  this.Bloglist = function (BlogID, CategoryID,Page,PageSize,loading) {
       var q = $q.defer();
     //  alert(BlogID + ',' + CategoryID);
-      $ionicLoading.show();
-      this.get('/GetBlogList/' + BlogID + '/' + CategoryID).then(function (response) {
+      if (loading != 'loadmore')
+      {
+          $ionicLoading.show();
+      }
+      
+      this.get('/GetBlogList/' + BlogID + '/' + CategoryID + '/' + Page + '/' + PageSize).then(function (response) {
           console.log(response.data.GetBlogListResult);
-          $rootScope.blogvalues = response.data.GetBlogListResult;
+          for (var i = 0; i < response.data.GetBlogListResult.length; i++)
+          {
+              $rootScope.blogvalues.push(response.data.GetBlogListResult[i]);
+          }
+          
           $rootScope.blogvalues.map((i, j) => {
               if (i.UserLikes != null)
               {
@@ -49,7 +57,7 @@
           console.log($rootScope.blogvalues);
         //  console.log(JSON.stringify( response.data.GetBlogListResult));
           $ionicLoading.hide();
-          q.resolve(response);
+          q.resolve(response.data.GetBlogListResult);
           $state.go("dashboard");
       }, function (error) {  q.reject(error);
           alert(JSON.stringify(error));
