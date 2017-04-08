@@ -4,13 +4,22 @@
  // var url =  'http://localhost:49267/service.svc';
       var url = 'http://smartservicesapp.com/Service.svc';  
       $rootScope.blogvalues = [];
-  this.get=function(urlres){
-      var q = $q.defer();
-      $ionicLoading.show();
+      this.get = function (urlres,loading) {
+         
+          var q = $q.defer();
+          if (loading == 'loadmore' || loading == 'category') {
+             // alert(loading);
+             
+          }
+          else {
+              $ionicLoading.show();
+             // alert('unknown');
+          }
+     
       $http.get(url+urlres).then(function (result) {
          
           q.resolve(result);
-          $ionicLoading.hide();
+         $ionicLoading.hide();
       }, function (error) {
           q.reject(error);
           alert(JSON.stringify(error));
@@ -22,7 +31,7 @@
       var q = $q.defer();
       $ionicLoading.show();
       $http.post(url+urlres, data).then(function (result) {
-          $ionicLoading.hide();
+         $ionicLoading.hide();
           q.resolve(result);
       }, function (error) {
           q.reject(error);
@@ -34,13 +43,13 @@
 
   this.Bloglist = function (BlogID, CategoryID,Page,PageSize,loading) {
       var q = $q.defer();
-    //  alert(BlogID + ',' + CategoryID);
-      if (loading != 'loadmore')
+      //  alert(BlogID + ',' + CategoryID);
+      if (loading == 'initializeagain')
       {
-          $ionicLoading.show();
+          $rootScope.blogvalues = [];
       }
-      
-      this.get('/GetBlogList/' + BlogID + '/' + CategoryID + '/' + Page + '/' + PageSize).then(function (response) {
+    
+      this.get('/GetBlogList/' + BlogID + '/' + CategoryID + '/' + Page + '/' + PageSize,loading).then(function (response) {
           console.log(response.data.GetBlogListResult);
           for (var i = 0; i < response.data.GetBlogListResult.length; i++)
           {
@@ -56,7 +65,7 @@
           })
           console.log($rootScope.blogvalues);
         //  console.log(JSON.stringify( response.data.GetBlogListResult));
-          $ionicLoading.hide();
+        //  $ionicLoading.hide();
           q.resolve(response.data.GetBlogListResult);
           $state.go("dashboard");
       }, function (error) {  q.reject(error);

@@ -19,7 +19,7 @@
   }
  
 
-  httpServices.get('/GetBlogList/'+BlogIDs+'/'+null).then(function (response) {
+  httpServices.get('/GetBlogList/'+BlogIDs+'/'+null+'/1/5','abc').then(function (response) {
 
       $scope.blogvalues = response.data.GetBlogListResult;
       $scope.blogvalues.map((i, j) => {
@@ -81,20 +81,32 @@
       var status = localStorage.getItem("UserID");
       //  alert(    httpServices.Bloglist('L', null));
       if (status === null || status === undefined || status === 'undefined' || status === '') {
-          $state.go('login');
-      }
-      var data={
-          Comment:txtContent,
-          UserID: $scope.UserId,
-          BlogId: BlogIDs,
-          CommentId:0
-      }
-      httpServices.post('/AddUpdateBlogComment', data).then(function (res) {
-          console.log(data);
-          getComment();
-      }, function (er) {
+          var myPopup = $ionicPopup.confirm({
+              template: 'Please Login to comment on blog.',
+              title: 'Alert',
 
-      });
+              // scope: $scope,
+
+          });
+          myPopup.then(function (res) {
+              $state.go('login');
+          });
+      }
+      else {
+          var data = {
+              Comment: txtContent,
+              UserID: $scope.UserId,
+              BlogId: BlogIDs,
+              CommentId: 0
+          }
+          httpServices.post('/AddUpdateBlogComment', data).then(function (res) {
+              console.log(data);
+              getComment();
+          }, function (er) {
+
+          });
+      }
+      
   }
   $scope.editShow = function (id) {
       $scope.Comment.map((i, j) => {

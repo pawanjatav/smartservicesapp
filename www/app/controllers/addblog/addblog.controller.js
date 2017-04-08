@@ -79,7 +79,7 @@ var options={
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
             else {
-                $state.go('dashboard');
+                httpServices.Bloglist('L',null,1,5,'initializeagain');
             }
 
         }, function (error) {
@@ -112,8 +112,8 @@ var options={
                     localStorage.setItem("blogadded", JSON.stringify(result));
                     var value = $ionicHistory.clearCache();
                     value.then(function () {
-                        $ionicLoading.hide();
-                        $state.go('dashboard');
+                        $ionicLoading.show();
+                        httpServices.Bloglist('L', null, 1, 5, 'initializeagain');
                     })
                 }, function (error) {
                     alert("An error has occurred: Code = " + error.code);

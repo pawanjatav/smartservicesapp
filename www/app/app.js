@@ -31,6 +31,59 @@ angular.module('trust', ['ionic',
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
+
+
+      var push = PushNotification.init({
+            android: {
+                senderID: "982524787977"
+            },
+            browser: {
+                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+            },
+            ios: {
+                alert: "true",
+                badge: "true",
+                sound: "true"
+            },
+            windows: {}
+        });
+
+        push.on('registration', function (data) {
+            // data.registrationId
+        //    alert(JSON.stringify(data));
+           
+            localStorage.setItem("GCMID", data.registrationId);
+        });
+      
+        push.on('notification', function (data) {
+
+            // data.message,
+            // data.title,
+            // data.count,
+            // data.sound,
+            // data.image,
+            // data.additionalData
+        });
+       
+        push.on('error', function (e) {
+            // e.message
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }

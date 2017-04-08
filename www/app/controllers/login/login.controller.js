@@ -1,7 +1,9 @@
 ﻿angular.module('login.module.controller', []).controller('login.controller', function ($scope, $state, httpServices, ionicToast, $rootScope, $ionicHistory) {
     var count = 0;
     $scope.passhow = false;
-    $scope.authenticateUser = function (data) {
+    $scope.authenticateUser = function (data1) {
+        var data = data1;
+        data.GCMId = localStorage.getItem('GCMID');
         if (count == 0) {
             $scope.passhow = true;
             count++;

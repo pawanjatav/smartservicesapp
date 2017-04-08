@@ -1,9 +1,11 @@
-﻿angular.module('main.module.controller', []).controller('main', function ($ionicPopup, $timeout,$scope, $ionicScrollDelegate, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
+﻿angular.module('main.module.controller', []).controller('main', function ($ionicPopup,$stateParams, $timeout,$scope, $ionicScrollDelegate, $state, httpServices, $ionicLoading, ionicToast, $rootScope) {
 
     $rootScope.profilePicture = "img/classprofile.png";
     var admobid = {};
     $scope.catId = 'null';
     $scope.blogids = 'L';
+    setTimeout(function () {
+
     document.addEventListener('deviceready', function () {
         if (/(android)/i.test(navigator.userAgent)) { // for android & amazon-fireos
 
@@ -30,6 +32,7 @@
         });
 
     }, false)
+    },10000)
    
     $scope.signOut = function () {
         $rootScope.loginStatus = false;
@@ -65,7 +68,7 @@
    
 
 
-    httpServices.get('/GetCategoryList/L').then(function (response) {
+    httpServices.get('/GetCategoryList/L','category').then(function (response) {
         $scope.values = response.data.GetCategoryListResult;
     }, function (error) {
 

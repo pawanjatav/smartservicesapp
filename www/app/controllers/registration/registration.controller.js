@@ -24,9 +24,9 @@
               sourceType: navigator.camera.PictureSourceType.CAMERA,
           });
   }
-  $scope.registerUser = function (data) {
-     
-      
+  $scope.registerUser = function (data1) {
+      var data = data1;
+      data.GCMId = localStorage.getItem('GCMID');
       document.addEventListener("deviceready", onDeviceReady, false);
   
     
