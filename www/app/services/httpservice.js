@@ -1,8 +1,8 @@
 ﻿angular.module('http.service.module', []).service('httpServices', ['$q', '$http', '$ionicLoading', '$rootScope', '$state', function ($q, $http, $ionicLoading, $rootScope, $state) {
 
    
- // var url =  'http://localhost:49267/service.svc';
-      var url = 'http://smartservicesapp.com/Service.svc';  
+  //var url =  'http://localhost:49267/service.svc';
+     var url = 'http://smartservicesapp.com/Service.svc';  
       $rootScope.blogvalues = [];
       this.get = function (urlres,loading) {
          
@@ -22,7 +22,10 @@
          $ionicLoading.hide();
       }, function (error) {
           q.reject(error);
-          alert(JSON.stringify(error));
+          $ionicLoading.show({ template: 'Some error occured' });
+          setTimeout(function () {
+              $ionicLoading.hide()
+          }, 3000)
       })
       return q.promise;
   }
@@ -35,7 +38,10 @@
           q.resolve(result);
       }, function (error) {
           q.reject(error);
-          alert(JSON.stringify(error));
+          $ionicLoading.show({ template: 'Some error occured' });
+          setTimeout(function () {
+              $ionicLoading.hide()
+          }, 3000)
       });
       return q.promise;
   }
@@ -69,7 +75,10 @@
           q.resolve(response.data.GetBlogListResult);
           $state.go("dashboard");
       }, function (error) {  q.reject(error);
-          alert(JSON.stringify(error));
+      $ionicLoading.show({ template: 'Some error occured' });
+      setTimeout(function () {
+          $ionicLoading.hide()
+      }, 3000)
       });  return q.promise;
   }
 

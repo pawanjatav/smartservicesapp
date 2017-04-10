@@ -16,7 +16,7 @@ angular.module('trust', ['ionic',
 'ngCordova'
 ])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, $state) {
   
 
 
@@ -50,13 +50,17 @@ angular.module('trust', ['ionic',
 
         push.on('registration', function (data) {
             // data.registrationId
-        //    alert(JSON.stringify(data));
+       //  alert(JSON.stringify(data));
            
             localStorage.setItem("GCMID", data.registrationId);
         });
       
         push.on('notification', function (data) {
-
+           // alert(JSON.stringify(data));
+            if (!data.additionalData.foreground) {
+                $state.go('blogsdetailed', { BlogId: data.additionalData.blogId, CategoryID: 5 });
+            }
+            
             // data.message,
             // data.title,
             // data.count,

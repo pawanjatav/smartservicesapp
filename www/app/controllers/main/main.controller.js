@@ -4,6 +4,7 @@
     var admobid = {};
     $scope.catId = 'null';
     $scope.blogids = 'L';
+    $scope.UserId = window.localStorage.getItem('UserID');
     setTimeout(function () {
 
     document.addEventListener('deviceready', function () {
@@ -38,7 +39,7 @@
         $rootScope.loginStatus = false;
         $rootScope.profilePicture = "img/classprofile.png";
         $rootScope.profileName = "";
-       
+        $scope.UserId = ''; 
         localStorage.setItem("UserID", "");
         localStorage.setItem("loginStatus", "");
         localStorage.setItem("profileName", "");

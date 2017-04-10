@@ -3,14 +3,14 @@
 
 
         <div ng-repeat="val in blogvalues" class="list card">
-
+            
             <div class="item item-avatar">
-
+              
                 <img src="http://smartservicesapp.com/Uploads/ProfilePic/{{val.Userinfo[0].FilePathName}}" />
                 <h2>{{val.Userinfo[0].FirstName}} {{val.Userinfo[0].LastName}} </h2>
                 <p>  
                     {{convertDate(val.CreatedDate) | date:'MMM dd, y'}}
-            
+                   <div><i class="icon ion-chevron-down edit-blog" ng-show="val.UserID==UserId" ng-click="openPopover($event,val.BlogId,$index)"></i></div>
                 </p>
             </div>
 
