@@ -1,4 +1,4 @@
-﻿angular.module('dashboard.module.controller', []).controller('dashboard.controller', function ($scope, $state,$ionicPopover, $ionicHistory, httpServices, $rootScope) {
+﻿angular.module('dashboard.module.controller', []).controller('dashboard.controller', function ($scope,$ionicPopup,$cordovaSocialSharing, $state,$ionicPopover, $ionicHistory, httpServices, $rootScope) {
 
     $ionicHistory.clearCache();
     $ionicHistory.clearHistory();
@@ -13,6 +13,35 @@
     }).then(function (popover) {
         $scope.popover = popover;
     });
+    $scope.popover1 = $ionicPopover.fromTemplateUrl('views/popoverShare.html', {
+        scope:$scope
+    }).then(function (pop) {
+        $scope.popover1 = pop;
+    })
+    $scope.shareWith = function (txtContent, file) {
+        console.log(txtContent);
+        var img = (angular.isUndefined(file)) ? '' : "http://smartservicesapp.com/Uploads/BlogDoc/"+file;
+        console.log(img)
+       // var option={, 'Blog', '', img}
+        var options = {
+            message: txtContent, // not supported on some apps (Facebook, Instagram)
+            subject: 'Smart Services', // fi. for email
+            files: [img], // an array of filenames either locally or remotely
+            url: 'https://play.google.com/store/apps/details?id=com.bahubali.game&hl=en',
+            //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+        }
+        $cordovaSocialSharing
+    .shareWithOptions(options) // Share via native share sheet
+    .then(function (result) {
+        // Success!
+    }, function (err) {
+        // An error occured. Show a message to the user
+    });
+
+    }
+    $scope.popoverOpen = function ($event) {
+        $scope.popover1.show($event);
+    }
     $scope.UserId = window.localStorage.getItem('UserID');
     $scope.openPopover = function ($event,bId,ind) {
        
@@ -25,14 +54,27 @@
         $state.go('addblog', { blogid: id });
     }
     $scope.deleteBlog = function (id) {
-
-        $rootScope.blogvalues.splice($scope.index, 1);
         $scope.popover.hide();
-        httpServices.post('/DeleteBlog', { BlogId: id, ImageName: '' }).then(function (response) {
+        var myPopup = $ionicPopup.confirm({
+            template: 'Do you want to delete?',
+            title: 'Alert',
 
+            // scope: $scope,
 
-        }, function (error) {
         });
+        myPopup.then(function (res) {
+            if (res) {
+
+            $rootScope.blogvalues.splice($scope.index, 1);
+            $scope.popover.hide();
+            httpServices.post('/DeleteBlog', { BlogId: id, ImageName: '' }).then(function (response) {
+
+
+            }, function (error) {
+            });
+            }
+        });
+       
     }
     $scope.convertDate = function (mydate) {
         var p = mydate;

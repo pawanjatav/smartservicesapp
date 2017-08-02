@@ -54,7 +54,7 @@
       {
           $rootScope.blogvalues = [];
       }
-    
+     
       this.get('/GetBlogList/' + BlogID + '/' + CategoryID + '/' + Page + '/' + PageSize,loading).then(function (response) {
           console.log(response.data.GetBlogListResult);
           for (var i = 0; i < response.data.GetBlogListResult.length; i++)

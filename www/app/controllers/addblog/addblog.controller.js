@@ -1,4 +1,4 @@
-﻿angular.module('addblogs.module.controller', []).controller('addblogs.controller', function ($scope,$cordovaCamera,$stateParams, $ionicLoading, $ionicHistory, $state, httpServices, ionicToast) {
+﻿angular.module('addblogs.module.controller', []).controller('addblogs.controller', function ($scope,$timeout, $cordovaCamera, $stateParams, $ionicLoading, $ionicHistory, $state, httpServices, ionicToast, $cordovaCapture) {
     //  $scope.images = ["img/classprofile.png"];
     $scope.images = [];
     $scope.data = {};
@@ -7,9 +7,53 @@
     if (status === null || status === undefined || status === 'undefined' || status === '') {
         $state.go('login');
     }
+    $scope.button = false;
+    $scope.data.CategoryID = 'select';
+    $scope.captureVideo = function () {
+        var options = { limit: 3, duration: 15 };
 
+        $cordovaCapture.captureVideo(options).then(function (mediaFiles) {
+            // Success! Video data is here
+            $timeout(function () {
+                var file = mediaFiles[0];
+                var videoFileName = 'video-name-here'; // I suggest a uuid
+                VideoEditor.transcodeVideo(
+           function(result) {
+                // result is the path to the transcoded video on the device
+                console.log('videoTranscodeSuccess, result: ' + result);
+            },
+
+                function(err) {
+                    console.log('videoTranscodeError, err: ' + err);
+                },
+            {
+                fileUri: file.fullPath,
+                outputFileName: videoFileName,
+                outputFileType: VideoEditorOptions.OutputFileType.MPEG4,
+                optimizeForNetworkUse: VideoEditorOptions.OptimizeForNetworkUse.YES,
+                saveToLibrary: true,
+                maintainAspectRatio: true,
+                width: 640,
+                height: 640,
+                videoBitrate: 1000000, // 1 megabit
+                audioChannels: 2,
+                audioSampleRate: 44100,
+                audioBitrate: 128000, // 128 kilobits
+                progress: function (info) {
+                    console.log('transcodeVideo progress callback, info: ' + info);
+                }
+            }
+        );
+            }, 100)
+          
+
+        }, function (err) {
+            // An error occurred. Show a message to the user
+        });
+    }
     if ($stateParams.blogid!='')
     {
+        $scope.button = true;
         httpServices.get('/GetPrivacyTypeList/L').then(function (response) {
             //     alert(response);
             $scope.Privacyvalues = response.data.GetPrivacyTypeListResult;
@@ -37,7 +81,9 @@
     else {
         httpServices.get('/GetPrivacyTypeList/L').then(function (response) {
             //     alert(response);
+            $scope.data.PrivacyID='sel'
             $scope.Privacyvalues = response.data.GetPrivacyTypeListResult;
+            $scope.Privacyvalues.splice(0, 0, {PrivacyID:'sel',PrivacyOrderBy:'',PrivacyTypeName:"Select Privacy"})
         }, function (error) {
         });
     }

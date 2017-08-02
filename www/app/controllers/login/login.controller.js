@@ -23,6 +23,7 @@
                       //  alert(JSON.stringify(dat));
                         $rootScope.profilePicture ="http://smartservicesapp.com/Uploads/profilepic/"+ dat.data.GetUserInfoResult[0].FilePathName;
                         $rootScope.profileName = "Hello! " + dat.data.GetUserInfoResult[0].FirstName;
+                        localStorage.setItem('IsNotification', dat.data.GetUserInfoResult[0].IsNotification);
                         localStorage.setItem('profileName', $rootScope.profileName);
                         localStorage.setItem('profilePic', $rootScope.profilePicture);
                       //  alert("Hello! " + dat.data.GetUserInfoResult[0].FirstName)

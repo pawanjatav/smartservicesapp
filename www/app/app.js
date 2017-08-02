@@ -12,14 +12,29 @@ angular.module('trust', ['ionic',
 'http.service.module',
 'main.module.controller',
 'ionic-toast',
+'mypost.module',
 'forgetpassword.module',
-'ngCordova'
+'ngCordova',
+'changepassword.module'
 ])
 
-.run(function ($ionicPlatform, $state) {
+.run(function ($ionicPlatform, $state, $rootScope) {
   
-
-
+    $rootScope.checkBlogDetail = true;
+    $rootScope.$on('$stateChangeStart',
+function (event, toState, toParams, fromState, fromParams) {
+    // do something
+    if (toState.name == 'mypost') {
+        
+        $rootScope.isMypost = true;
+        return;
+    }
+    if(fromState.name=='mypost')
+    {
+        $rootScope.isMypost = false;
+    }
+    console.log($rootScope.isMypost)
+})
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -31,6 +46,7 @@ angular.module('trust', ['ionic',
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
+  
 
 
       var push = PushNotification.init({
@@ -56,8 +72,11 @@ angular.module('trust', ['ionic',
         });
       
         push.on('notification', function (data) {
-           // alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
+            $rootScope.checkBlogDetail = false;
             if (!data.additionalData.foreground) {
+                console.log(data);
+                $rootScope.checkBlogDetail = true;
                 $state.go('blogsdetailed', { BlogId: data.additionalData.blogId, CategoryID: 5 });
             }
             
@@ -94,5 +113,6 @@ angular.module('trust', ['ionic',
   });
 }).config(function ($urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.maxCache(0);
+
     $urlRouterProvider.otherwise('dashboard');
 })

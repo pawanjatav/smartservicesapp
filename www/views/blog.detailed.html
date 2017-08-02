@@ -31,18 +31,33 @@
                 </p>
                 <p>
                    
-                    <ion-item class="item-icon-right">
+                    <!--<ion-item class="item-icon-right">
                         <a  class="subdued" ng-click="likeBlog(val.BlogId,$index)"><span style="color:royalblue">{{val.UserLikesCount}}</span> Like</a>
                         <a  class="subdued">Comments</a>
-                       <!-- <i class="icon ion-arrow-down-a"><span class="badge badge-assertive icon-badge">2</span></i>-->
-                    </ion-item>
+                        <i class="icon ion-arrow-down-a"><span class="badge badge-assertive icon-badge">2</span></i>
+                    </ion-item>-->
+                    <div class="border-boxing">
+    <div class="center-div" style="width:31%">
+        <i class="icon ion-thumbsup"></i>
+        <a ng-click="likeBlog(val.BlogId,$index)"><span style="color:royalblue">{{val.UserLikesCount}}</span> Like </a>
+
+    </div>
+    <div class="center-div" style="width:40%">
+        <i class="icon ion-chatbox"></i>
+      <a>Comments</a>
+    </div>
+    <div class="center-div" style="width:29%">
+        <i class="icon ion-share"></i>
+        <a ng-click="shareWith(val.textContent,val.Fileinfo[0])">Share</a>
+    </div>
+</div>
                    <!-- <i class="icon ion-ios7-telephone-outline"><span class="badge badge-assertive icon-badge">2</span></i>-->
                     <!--<a ui-sref="downloadVideo" class="item-note assertive"> <i class="ion-arrow-down-a badge-container  badge-positive" ></i><i class="badge badge-assertive">2</i> Video</a>-->
                 </p>
             </div>
             <div class="item">
                 <textarea class="textarea-cls" ng-model="txtContent"></textarea>
-                <button class="button button-small button-positive" ng-click="addComment(txtContent)">Submit</button>
+                <button class="button button-small button-positive" ng-click="addComment(txtContent);txtContent=''">Submit</button>
             </div>
         </div>
         <div class="item">

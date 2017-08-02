@@ -1,0 +1,14 @@
+﻿<ion-modal-view style="height:150px;top:75%">
+    <ion-header-bar style="background-color:#387ef5;">
+        <h1 class="title" style="color:white;text-align:center">Notification Setting</h1>
+        <div class="buttons" >
+            <button style="color:white" class="button button-icon ion-android-close" ng-click="closeModal()"></button>
+            </div>
+</ion-header-bar>
+    <ion-content>
+        <ion-toggle ng-model="notification" ng-change="toggleNotification(notification)" toggle-class="toggle-calm">Notification</ion-toggle>
+     
+           
+       
+    </ion-content>
+</ion-modal-view>

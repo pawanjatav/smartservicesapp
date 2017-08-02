@@ -1,8 +1,9 @@
-﻿angular.module('blogsdetailed.module.controller', []).controller( 'blogsdetailed.controller', function ($ionicPopup,$stateParams, $scope, $ionicSlideBoxDelegate, httpServices, $state) {
-  
+﻿angular.module('blogsdetailed.module.controller', []).controller( 'blogsdetailed.controller', function ($ionicPopup,$stateParams,$rootScope, $scope, $ionicSlideBoxDelegate, httpServices, $state) {
+    console.log('blogsdetailed called');
      $scope.next = function() {
     $ionicSlideBoxDelegate.next();
-  };
+     };
+     setTimeout(function () { $rootScope.checkBlogDetail = true; }, 5000)
   $scope.previous = function() {
     $ionicSlideBoxDelegate.previous();
   };
@@ -30,6 +31,27 @@
       })
   }, function (error) {
   });
+  $scope.shareWith = function (txtContent, file) {
+      console.log(txtContent);
+      var img = (angular.isUndefined(file)) ? '' : "http://smartservicesapp.com/Uploads/BlogDoc/" + file;
+      console.log(img)
+      // var option={, 'Blog
+      var options = {
+          message: txtContent, // not supported on some apps (Facebook, Instagram)
+          subject: 'Smart Services', // fi. for email
+          files: [img], // an array of filenames either locally or remotely
+          url: 'https://play.google.com/store/apps/details?id=com.bahubali.game&hl=en',
+          //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+      }
+      $cordovaSocialSharing
+  .shareWithOptions(options) // Share via native share sheet
+  .then(function (result) {
+      // Success!
+  }, function (err) {
+      // An error occured. Show a message to the user
+  });
+
+  }
   $scope.likeBlog = function (blogId, index) {
       var status = localStorage.getItem("UserID");
       if (status === null || status === undefined || status === 'undefined' || status === '') {
@@ -101,6 +123,7 @@
           }
           httpServices.post('/AddUpdateBlogComment', data).then(function (res) {
               console.log(data);
+             
               getComment();
           }, function (er) {
 

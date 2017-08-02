@@ -9,15 +9,17 @@
         </div>-->
        
         <div class="row">
-
+            
             <div class="col col-30">
-                <a data-ng-click="addImage()"><img width="20%" src="img/1469647872_image.ico" /><i style="position:absolute" class="ion-plus"></i></a>
+                <a data-ng-click="addImage()"><img width="40%" src="img/1469647872_image.ico" /><i style="position:absolute" class="ion-plus"></i></a>
             </div>
-          
-            <div class="col col-70">
+            <div class="col col-30">
+                <a data-ng-click="addImage()"><img width="40%" src="img/1494585179_Video-Camera-2.ico" /><i style="position:absolute" class="ion-plus"></i></a>
+            </div>
+            <div class="col col-50">
                 <div class="list">
                     <select class="item item-input item-select" ng-model="data.CategoryID">
-                       
+                       <option value="select" ng-selected="CategoryID=='select'">Select Category</option>
                         <option ng-repeat="value in values" ng-selected="CategoryID==value.CategoryID" value="{{value.CategoryID}}">{{value.CategoryName}}</option>
                     </select>
 
@@ -83,11 +85,12 @@
 
             </div>
         </ion-scroll>-->
-
+       <!-- <button ng-click="captureVideo()">video upload</button>-->
 
     </ion-content>
     <ion-footer-bar>
-        <button class="button button-block button-positive" style="margin:0" data-ng-click="addBlog1(data)">Create</button>
+        <button ng-show="button" class="button button-block button-positive" style="margin:0" data-ng-click="addBlog1(data)">Update</button>
+        <button ng-hide="button" class="button button-block button-positive" style="margin:0" data-ng-click="addBlog1(data)">Create</button>
     </ion-footer-bar>
    
 </ion-view>

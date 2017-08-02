@@ -1,6 +1,17 @@
-﻿angular.module('registration.module.controller', []).controller('registration.controller', function ($scope, ionicToast,$rootScope, $ionicPopover, $state, httpServices, $ionicLoading) {
+﻿angular.module('registration.module.controller', []).controller('registration.controller', function ($scope,$stateParams, ionicToast,$rootScope, $ionicPopover, $state, httpServices, $ionicLoading) {
     $scope.dataSrc = "img/classprofile.png"
-   
+    $scope.data = {};
+    $scope.pass = true;
+    $scope.FileName = '';
+    if ($stateParams.isEdit != '')
+    {
+        console.log($stateParams.isEdit)
+        $scope.data = JSON.parse($stateParams.isEdit);
+        $scope.dataSrc = 'http://smartservicesapp.com/Uploads/profilepic/' + $scope.data.FilePathName;
+        $scope.pass = false;
+    }
+    
+
     $scope.setProfilePicture = function () {
         $scope.popover.hide();
             navigator.camera.getPicture(profilePictureSuccess, profilePictureFail, {
@@ -51,6 +62,9 @@
           options.mimeType = "text/plain";
 
           var params = {};
+          if (!$scope.pass) {
+              data.RegistrationID = localStorage.getItem('UserID');
+          }
           params = data;
 
           options.params = params;
@@ -60,9 +74,26 @@
           {
 
           }
+          console.log('updates come here');
+          console.log($scope.FileName)
+          if ($scope.FileName == '') {
+              httpServices.post('/RegisterUser', data).then(function (suc) {
+                  ionicToast.show('Updated Successfully', 'bottom', false, 2500);
+                  $state.go('dashboard', null, { reload: true });
+              }, function (er) {
+                  ionicToast.show('error occured', 'bottom', false, 2500);
+              })
+          }
+          else {
+
           ft.upload(fileURL, encodeURI("http://smartservicesapp.com/PicUpload.ashx"), function (r) {
-              ionicToast.show('Registered Successfully', 'bottom', false, 2500);
-              
+              if ($scope.pass) {
+
+
+                  ionicToast.show('Registered Successfully', 'bottom', false, 2500);
+              } else {
+                  ionicToast.show('Updated Details Successfully', 'bottom', false, 2500);
+              }
               $rootScope.profilePicture = "data:image/jpeg;base64," + r.response;
               $rootScope.loginStatus = true;
               // alert(JSON.stringify(response));
@@ -75,6 +106,7 @@
               alert("upload error source " + error.source);
               alert("upload error target " + error.target);
           }, options);
+          }
       }
 
 

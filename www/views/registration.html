@@ -10,11 +10,11 @@
 
        <div class="center">
           
-           <div class="profile-pic" data-ng-click="popover.show($event)">
-               <div class="round"><a><img src="{{dataSrc}}" alt="" draggable="false" id="camera"></a>
-                  
+           <div class="profile-pic" data-ng-click="popover.show($event)"style="position:relative">
+               <div class="round" ><a><img ng-src="{{dataSrc}}" alt="" draggable="false" id="camera"></a>
+                
                </div>
-              
+                <i class="icon ion-edit" style="font-size:20px;position:absolute;left:50%;bottom:10px" ng-show="!pass"></i>
            </div>
          <!--  <a data-ng-click="popover.show($event)" style="width:5%;height:5%;"><img src="img/1469541137_device-camera-capture-photo-glyph.ico" style="height:30%;width:30%" /></a>-->
        </div>
@@ -36,20 +36,21 @@
            <label class="item item-input">
                <input type="email" placeholder="Email" ng-model="data.Email">
            </label>
-           <label class="item item-input">
-               <input type="password" placeholder="Password" ng-model="data.Password">
+           <label class="item item-input"  ng-show="pass">
+               <input type="password" ng-show="pass" placeholder="Password" ng-model="data.Password">
            </label>
-           <label class="item item-input">
+           <label class="item item-input"  ng-show="pass">
                <input type="password" placeholder="Confirm Password" ng-model="confirm" >
            </label>
            <label class="item item-input">
-               <input type="number" placeholder="mobile no." ng-model="data.Mobile">
+               <input type="text" placeholder="mobile no." ng-model="data.Mobile">
            </label>
           
          
        </div>
        <div class="row">
-           <button class="button button-block button-positive" ng-click="registerUser(data)">Register</button>
+           <button class="button button-block button-positive" ng-show="pass" ng-click="registerUser(data)">Register</button>
+           <button class="button button-block button-positive" ng-show="!pass" ng-click="registerUser(data)">Update</button>
        </div>
    </ion-content>
 </ion-view>

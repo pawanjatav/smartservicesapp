@@ -1,172 +1,171 @@
 ﻿<!DOCTYPE html>
 <html ng-app="trust">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="lib/ionic-toast/src/ionic-toast.css" rel="stylesheet">
 
-      <link href="lib/ionic-toast/src/ionic-toast.css" rel="stylesheet">
-   
-      <link href="css/customstyle.css" rel="stylesheet">
-      <link href="fonts/Montserrat-Black/Montserrat-Black.css" rel="stylesheet">
-      <link href="fonts/Montserrat-UltraLight/Montserrat-UltraLight.css" rel="stylesheet">
-      <link href="fonts/Montserrat-SemiBold/Montserrat-SemiBold.css" rel="stylesheet">
-      <link href="fonts/Montserrat-Regular/Montserrat-Regular.css" rel="stylesheet">
-      <link href="fonts/Montserrat-Light/Montserrat-Light.css" rel="stylesheet">
-      <link href="fonts/Montserrat-Hairline/Montserrat-Hairline.css" rel="stylesheet">
-      <link href="fonts/Montserrat-ExtraBold/Montserrat-ExtraBold.css" rel="stylesheet">
-      <link href="fonts/Montserrat-Bold/Montserrat-Bold.css" rel="stylesheet">
-
-      <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/customstyle.css" rel="stylesheet">
+    <link href="fonts/Montserrat-Black/Montserrat-Black.css" rel="stylesheet">
+    <link href="fonts/Montserrat-UltraLight/Montserrat-UltraLight.css" rel="stylesheet">
+    <link href="fonts/Montserrat-SemiBold/Montserrat-SemiBold.css" rel="stylesheet">
+    <link href="fonts/Montserrat-Regular/Montserrat-Regular.css" rel="stylesheet">
+    <link href="fonts/Montserrat-Light/Montserrat-Light.css" rel="stylesheet">
+    <link href="fonts/Montserrat-Hairline/Montserrat-Hairline.css" rel="stylesheet">
+    <link href="fonts/Montserrat-ExtraBold/Montserrat-ExtraBold.css" rel="stylesheet">
+    <link href="fonts/Montserrat-Bold/Montserrat-Bold.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
-
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    
 
-      <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
-
+    <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-     <script src="lib/ng-cordova.js"></script>
-
+    <script src="lib/ng-cordova.js"></script>
     <!-- your app's js -->
+    <script src="app/app.js"></script>
 
-      <script src="app/app.js"></script>
-    
-  </head>
-  <body ng-controller="main" class="ion-contentColor" style="font-family:'Conv_Montserrat-Light',Sans-Serif;">
+</head>
+<body ng-controller="main" class="ion-contentColor" style="font-family:'Conv_Montserrat-Light',Sans-Serif;">
+    <ion-side-menus enable-menu-with-back-views="true">
+        <ion-side-menu-content>
+            <ion-nav-bar class="bar-positive" align-title="center">
 
-      <ion-side-menus enable-menu-with-back-views="true">
+                <ion-nav-buttons side="left">
+                    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                </ion-nav-buttons>
+                <ion-nav-buttons side="right">
+                    <button class="button button-icon button-clear ion-social-rss" ui-sref="addblog({blogid:''})"><i class="ion-plus"></i></button>
+                </ion-nav-buttons>
+                <ion-nav-back-button >
+                </ion-nav-back-button>
+            </ion-nav-bar>
+            <ion-nav-view></ion-nav-view>
+        </ion-side-menu-content>
+        <ion-side-menu side="left">
+            <ion-header-bar class="bar-positive">
+                <h1 class="title">Welcome To Smart Services</h1>
+            </ion-header-bar>
+            <ion-content>
+                <!--<div class="item-avatar-left" style="background-color:black">
+                    <img src="img/1272.jpg" />
+                    <div class="row"  style="padding-top:8%">
+                       <h5 style="color:white;">Hello Sachin!</h5>
+                    </div>
+                </div>-->
+                <!--<div class="row" style="background-color:black">
+                    <div class="col-offset-20">
+                        <div class="row profile-picture-div" style="width: 174px">
+                            <div class="col col-offset-20 col-50 item-body">
+                                <img id="camera" class="full-image profile-picture" ng-src="{{profilePicture}}">
 
-          <ion-side-menu-content>
-              <ion-nav-bar class="bar-positive">
+                            </div>
 
+                        </div>
+                        <p style="color:white; text-align:center;">Hello Sachin!</p>
+                    </div>
 
-                  <ion-nav-buttons side="left">
-                      <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-                  </ion-nav-buttons>
-                  <ion-nav-buttons side="right">
-                      <button class="button button-icon button-clear ion-social-rss" ui-sref="addblog({blogid:''})"><i class="ion-plus"></i></button>
-                  </ion-nav-buttons>
-                  <ion-nav-back-button>
-                  </ion-nav-back-button>
-              </ion-nav-bar>
+                </div>-->
+                <div class="center" style="background-color:black">
+                    <!--<p class="blue bold">Hello Sachin!</p>-->
+                    <div class="profile-pic" style="padding:10px 0 5px 0;">
+                        <div class="round" style="width:70px;height:70px"><a href="#"><img ng-src="{{profilePicture}}" alt="" draggable="false"></a></div>
+                        <p style="color:white; text-align:center;">{{profileName}}</p>
+                    </div>
 
-              <ion-nav-view></ion-nav-view>
-          </ion-side-menu-content>
-
-          <ion-side-menu side="left">
-              <ion-header-bar class="bar-positive">
-                  <h1 class="title">Welcome To Smart Services</h1>
-              </ion-header-bar>
-              <ion-content>
-                  <!--<div class="item-avatar-left" style="background-color:black">
-                      <img src="img/1272.jpg" />
-                      <div class="row"  style="padding-top:8%">
-                         <h5 style="color:white;">Hello Sachin!</h5> 
-                      </div>
-                  </div>-->
-                
-                      <!--<div class="row" style="background-color:black">
-                          <div class="col-offset-20">
-                              <div class="row profile-picture-div" style="width: 174px">
-                                  <div class="col col-offset-20 col-50 item-body">
-                                      <img id="camera" class="full-image profile-picture" ng-src="{{profilePicture}}">
-                                    
-                                  </div>
-                                 
-                              </div>
-                              <p style="color:white; text-align:center;">Hello Sachin!</p>
-                          </div>
-
-                      </div>-->
-
-                  <div class="center" style="background-color:black">
-                      <!--<p class="blue bold">Hello Sachin!</p>-->
-                      <div class="profile-pic" style="padding:10px 0 5px 0;">
-                          <div class="round" style="width:70px;height:70px"><a href="#"><img ng-src="{{profilePicture}}" alt="" draggable="false"></a></div>
-                          <p style="color:white; text-align:center;">{{profileName}}</p>
-                      </div>
-                      
-                  </div>
-                    
-                  
-                
-                  <ion-scroll scroll="true" direction="y" style="height:300px">
-                      <div class="list">
-                          <a class="item item-icon-left item-borderless" ng-click="getCategoryBlog('L',null)" menu-close="">
-                              <p><i class="icon ion-ios-stopwatch-outline" style="font-size:20px"></i></p>
-
-                              <h3>Current Activities</h3>
-
-                          </a>
-                          <a class="item item-icon-left item-borderless" menu-close="">
-                              <p><i class="icon fa fa-history" style="font-size:20px"></i></p>
-
-                              <h3>Old Activities</h3>
-
-                          </a>
-                        
-                          <a class="item item-icon-left item-borderless" menu-close="" ng-repeat="value in values | orderBy:'CatOrderBy'" ng-click="getCategoryBlog(null,{{value.CategoryID}})">
-                             <p><i class="{{value.CatClassName}}" style="font-size:20px"></i></p>
-                            
-                             <h3>{{value.CategoryName}}</h3>
-                             
-                          </a>
+                </div>
 
 
-                      </div>
-                  </ion-scroll>
-                  <div class="list">
-                      <a class="item item-icon-left" ui-sref="addblog" menu-close="" ng-show="loginStatus">
-                          <p><i class="icon ion-social-rss" style="font-size:20px"></i></p>
-                         <h3> ADD Blog</h3>
-                      </a>
-                      <a class="item item-icon-left" ui-sref="registration" menu-close="" ng-hide="loginStatus">
-                          <p><i class="icon ion-person-add" style="font-size:20px"></i></p>
-                          <h3>Sign Up</h3>
-                      </a>
-                      <a class="item item-icon-left item-borderless" ui-sref="login" menu-close="" ng-hide="loginStatus">
-                          <p><i class="icon ion-log-in" style="font-size:20px"></i></p>
-                         <h3>Login</h3> 
-                      </a>
-                      <a class="item item-icon-left item-borderless" menu-close="" ng-show="loginStatus" ng-click="signOut()">
-                          <p><i class="icon ion-log-out" style="font-size:20px"></i></p>
-                          <h3>SignOut</h3>
-                      </a>
-                      <a class="item item-icon-left item-borderless" ui-sref="dashboard" menu-close="">
-                          <p><i class="icon ion-gear-b" style="font-size:20px"></i></p>
-                        <h3>setting</h3>  
-                      </a>
 
-                  </div>
-                 
+                <ion-scroll scroll="true" direction="y" style="height:300px">
+                    <div class="list">
+                        <a class="item item-icon-left item-borderless" ng-click="getCategoryBlog('L',null)" menu-close="">
+                            <p><i class="icon ion-ios-stopwatch-outline" style="font-size:20px"></i></p>
+                            <h3>Current Activities</h3>
+                        </a>
+                        <a class="item item-icon-left item-borderless" menu-close="">
+                            <p><i class="icon fa fa-history" style="font-size:20px"></i></p>
+                            <h3>Old Activities</h3>
+                        </a>
 
-</ion-content>
-          </ion-side-menu>
+                        <a class="item item-icon-left item-borderless" menu-close="" ng-repeat="value in values | orderBy:'CatOrderBy'" ng-click="(isMypost)?goToMyPost(value.CategoryID):getCategoryBlog(null,{{value.CategoryID}})">
+                            <p><i class="{{value.CatClassName}}" style="font-size:20px"></i></p>
 
-      </ion-side-menus>
+                            <h3>{{value.CategoryName}}</h3>
 
-      <script src="app/services/httpservice.js"></script>
-      <script src="app/controllers/blogsdashboard/dashboard.module.js"></script>
-      <script src="app/controllers/login/login.module.js"></script>
-      <script src="app/controllers/registration/registration.module.js"></script>
-      <script src="app/controllers/blogsdashboard/dashboard.controller.js"></script>
-      <script src="app/controllers/login/login.controller.js"></script>
-      <script src="app/controllers/registration/registration.controller.js"></script>
-      <script src="app/controllers/blogsdetailed/blogsdetailed.controller.js"></script>
-      <script src="app/controllers/blogsdetailed/blogsdetailed.module.js"></script>
-      <script src="app/controllers/addblog/addblog.controller.js"></script>
-      <script src="app/controllers/addblog/addblog.module.js"></script>
-      <script src="app/controllers/forgetpassword/forgetpassword.module.js"></script>
-      <script src="app/controllers/forgetpassword/forgetpassword.controller.js"></script>
+                        </a>
 
-      <script src="app/controllers/main/main.controller.js"></script>
-  </body>
+                    </div>
+                </ion-scroll>
+                <div class="list">
+                    <a class="item item-icon-left" ng-show="loginStatus" style="border-bottom: none;" ng-click="(showSub)?showSub=false:showSub=true">
+                        <p><i class="icon ion-android-bicycle" style="font-size:20px;"></i></p>
+                        <h3> My Profile</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless" style="padding-left:88px" ng-click="registerPage()" menu-close="" ng-show="showSub">
+                        <p><i class="icon ion-person" style="font-size:20px;left:45px"></i></p>
+                        <h3>Profile</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless" style="padding-left:88px" ui-sref="mypost({catid:''})" menu-close="" ng-show="showSub">
+                        <p><i class="icon ion-social-rss" style="font-size:20px;left:45px"></i></p>
+                        <h3>My Activity</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless"  style="padding-left:88px" ui-sref="changepassword" menu-close=""ng-show="showSub">
+                        <p><i class="icon ion-ios-unlocked" style="font-size:20px;left:45px"></i></p>
+                        <h3>Change Password</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless" style="padding-left:88px" ng-click="openModal()" menu-close="" ng-show="showSub">
+                        <p><i class="icon ion-android-notifications" style="font-size:20px;left:45px"></i></p>
+                        <h3>Notification</h3>
+                    </a>
+                    <a class="item item-icon-left" ng-class="(loginStatus)?'item-borderless':'cls'" ui-sref="addblog" menu-close="" ng-show="loginStatus">
+                        <p><i class="icon ion-social-rss" style="font-size:20px"></i></p>
+                        <h3> ADD Blog</h3>
+                    </a>
+                    <a class="item item-icon-left" ng-class="(loginStatus)?'item-borderless':'cls'" ui-sref="registration({isEdit:''})" menu-close="" ng-hide="loginStatus">
+                        <p><i class="icon ion-person-add" style="font-size:20px"></i></p>
+                        <h3>Sign Up</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless" ui-sref="login" menu-close="" ng-hide="loginStatus">
+                        <p><i class="icon ion-log-in" style="font-size:20px"></i></p>
+                        <h3>Login</h3>
+                    </a>
+                    <a class="item item-icon-left item-borderless" menu-close="" ng-show="loginStatus" ng-click="signOut()">
+                        <p><i class="icon ion-log-out" style="font-size:20px"></i></p>
+                        <h3>SignOut</h3>
+                    </a>
+                    <!--<a class="item item-icon-left item-borderless" ui-sref="dashboard" menu-close="">
+                        <p><i class="icon ion-gear-b" style="font-size:20px"></i></p>
+                        <h3>setting</h3>
+                    </a>-->
+                </div>
+
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>
+    <script src="app/services/httpservice.js"></script>
+    <script src="app/controllers/blogsdashboard/dashboard.module.js"></script>
+    <script src="app/controllers/login/login.module.js"></script>
+    <script src="app/controllers/registration/registration.module.js"></script>
+    <script src="app/controllers/blogsdashboard/dashboard.controller.js"></script>
+    <script src="app/controllers/login/login.controller.js"></script>
+    <script src="app/controllers/mypost/mypost.module.js"></script>
+    <script src="app/controllers/registration/registration.controller.js"></script>
+    <script src="app/controllers/blogsdetailed/blogsdetailed.controller.js"></script>
+    <script src="app/controllers/blogsdetailed/blogsdetailed.module.js"></script>
+    <script src="app/controllers/addblog/addblog.controller.js"></script>
+    <script src="app/controllers/addblog/addblog.module.js"></script>
+    <script src="app/controllers/forgetpassword/forgetpassword.module.js"></script>
+    <script src="app/controllers/forgetpassword/forgetpassword.controller.js"></script>
+    <script src="app/controllers/main/main.controller.js"></script>
+    <script src="app/controllers/mypost/mypost.controller.js"></script>
+    <script src="app/controllers/changepassword/changepassword.module.js"></script>
+    <script src="app/controllers/changepassword/changepassword.controller.js"></script>
+</body>
 </html>
